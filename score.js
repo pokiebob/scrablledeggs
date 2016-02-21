@@ -8,7 +8,7 @@ var BOARD =
       /* Row 6 */ ['--', '3L', '--', '--', '--', '3L', '--', '--'],
       /* Row 7 */ ['--', '--', '2L', '--', '--', '--', '2L', '--'],
       /* Row 8 */ ['3L', '--', '--', '2L', '--', '--', '--', '*'],
-    ];
+      ];
 
 /**
  * Returns the raw letter score.
@@ -23,10 +23,20 @@ function letterScore(letter) {
 
 /**
  * Returns the letter multiple at (row, col)
- * @example letterMultAt(1, 4) = 2
+ *
+ * @example letterMultAt (1, 1) -> 1
+ * @example letterMultAt (1, 4) -> 2
+ * @example letterMultAt(2, 6) -> 3
  */
 function letterMultAt(row, col) {
-  return 0;
+  var colPrime =  (col < 8) ? col : 14 - col;
+  var rowPrime =  (row < 8) ? row : 14 - row;
+  var code = BOARD[rowPrime][colPrime];
+  var val = 1;
+  if (code === '2L') val = 2;
+  else 
+    if (code === '3L') val = 3;
+  return val;
 }
 
 /**
@@ -51,14 +61,17 @@ function unitTestLetterScore() {
   console.log( letterScore('Q') === 10 ? 'Passed': 'Failed');
   console.log( letterScore('Z') === 10 ? 'Passed': 'Failed');
   console.log( BOARD[3][3] == '2W' ? 'Passed' : 'Failed');
-  console.log( BOARD[7][7] == '*' ? 'Passed' : 'Failed')
+  console.log( BOARD[7][7] == '*' ? 'Passed' : 'Failed');
+  console.log(letterMultAt(13,13) === 1 ? 'Passed' : 'Failed');
+  console.log(letterMultAt(14,14) === 1 ? 'Passed': 'Failed');
+  console.log(letterMultAt(9, 9) === 3 ? 'Passed' : 'Failed');
+
 }
 
 /**
  * Testing area
  */
-function showScore() {
+function showScore(){
   unitTestLetterScore();
-  document.getElementById("scoreOut").innerHTML = letterScore('B');
+  document.getElementById("scoreOut").innerHTML = letterMultAt(9, 9);
 }
-
