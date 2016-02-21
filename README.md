@@ -1,0 +1,2 @@
+# scrablledeggs
+Scrabble JavaScript game
